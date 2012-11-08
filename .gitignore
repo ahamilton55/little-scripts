@@ -1,8 +1,13 @@
 # Site Specific config file #
 #############################
-cblr_config.py
+config.py
+*.conf
 
 # .pyc files                #
 #############################
 *.pyc
 
+# objects files for testing #
+#############################
+objects
+objects/*
