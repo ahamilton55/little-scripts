@@ -1,0 +1,32 @@
+[Cobbler]
+# Cobbler Server hostname or IP
+server =
+
+# Public interface on the servers that Nagios can access them from.
+interface =
+
+# Add an extra period (.) before the domain! (i.e. '.eucalyptus-systems.com')
+domain =
+
+[Nagios]
+# If you do not want to type the configuration directory in each value then
+# you may substitute it in by using "%(conf_dir)s"
+# (i.e. conf = %(conf_dir)s/nagios.cfg)
+
+# Nagios configuratoin file
+conf = %(conf_dir)s/
+
+# Configuration directory where all of the other data is sitting
+conf_dir =
+
+# Host template file to use
+template = %(conf_dir)s/nagios.template
+
+# Host group template to use
+hostgroup_template = %(conf_dir)s/hostgroup.template
+
+# Directory with production systems
+prod_dir = %(conf_dir)s/objects/production/
+
+# Directory with cattle systems
+cattle_dir = %(conf_dir)s/objects/cattle/
