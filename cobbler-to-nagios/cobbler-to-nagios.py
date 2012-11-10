@@ -132,7 +132,7 @@ def main():
 
     create_hostgroup_file(config.get('Nagios', 'hostgroup_template'), 
                             cattle, config.get('Nagios', 'cattle_dir'))
-    nagios_cmd = "nagios -v {0}".format(config.get('Nagios', 'conf'))
+    nagios_cmd = ["/usr/sbin/nagios", "-v", config.get('Nagios', 'conf')]
     nagios_rtn = subprocess.call(nagios_cmd)
 
     if not nagios_rtn == 0:
@@ -140,7 +140,7 @@ def main():
         it manually with {0}".format(nagios_cmd)
         exit(2)
     else:
-        nagios_rtn = subprocess.call('service nagios reload')
+        nagios_rtn = subprocess.call(["/sbin/service", "nagios", "reload"])
         if not nagios_rtn == 0:
             print "Error: Nagios did not properly reload!"
             exit(3)
