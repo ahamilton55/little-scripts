@@ -8,6 +8,7 @@ from optparse import OptionParser
 from ConfigParser import SafeConfigParser
 import re
 import os
+import subprocess
 
 def create_system_in_nagios(template, system_info, my_config):
                         #cattle_dir, prod_dir, interface, domain):
@@ -132,14 +133,14 @@ def main():
     create_hostgroup_file(config.get('Nagios', 'hostgroup_template'), 
                             cattle, config.get('Nagios', 'cattle_dir'))
     nagios_cmd = "nagios -v {0}".format(config.get('Nagios', 'conf'))
-    nagios_rtn = os.system(nagios_cmd)
+    nagios_rtn = subprocess.call(nagios_cmd)
 
     if not nagios_rtn == 0:
         print "Error: Nagios configuration is broken somewhere. Please check \
         it manually with {0}".format(nagios_cmd)
         exit(2)
     else:
-        nagios_rtn = os.system('service nagios reload')
+        nagios_rtn = subprocess.call('service nagios reload')
         if not nagios_rtn == 0:
             print "Error: Nagios did not properly reload!"
             exit(3)
