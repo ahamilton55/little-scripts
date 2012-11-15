@@ -11,3 +11,9 @@ define host{
         address                 %ip_address%
         }
 
+define service{
+    use                         cattle-service
+    host_name                   %hostname%
+    service_description         Check SSH
+    check_command               check_ssh
+    }
