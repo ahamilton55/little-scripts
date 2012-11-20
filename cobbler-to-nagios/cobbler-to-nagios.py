@@ -9,6 +9,7 @@ from ConfigParser import SafeConfigParser
 import re
 import os
 import subprocess
+import sys
 
 def create_system_in_nagios(template, system_info, my_config):
                         #cattle_dir, prod_dir, interface, domain):
@@ -17,7 +18,7 @@ def create_system_in_nagios(template, system_info, my_config):
     found in Cobbler in system_info
     """
     if not os.path.exists(template):
-        print "Error: Nagios template {0} was not found.".format(template)
+        sys.stderr.write("Error: Nagios template {0} was not found.\n".format(template))
         exit (1)
 
     if not os.path.exists(my_config['prod_dir'] + "/" +
@@ -136,13 +137,12 @@ def main():
     nagios_rtn = subprocess.call(nagios_cmd)
 
     if not nagios_rtn == 0:
-        print "Error: Nagios configuration is broken somewhere. Please check \
-        it manually with {0}".format(nagios_cmd)
+        sys.stderr.write("Error: Nagios configuration is broken somewhere. Please check it manually with {0}\n".format(nagios_cmd))
         exit(2)
     else:
         nagios_rtn = subprocess.call(["/sbin/service", "nagios", "reload"])
         if not nagios_rtn == 0:
-            print "Error: Nagios did not properly reload!"
+            sys.stderr.write("Error: Nagios did not properly reload!\n")
             exit(3)
 
 if __name__ == '__main__':
