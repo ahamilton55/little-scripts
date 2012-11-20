@@ -63,7 +63,8 @@ def main():
 
     parser = OptionParser()
     parser.add_option("-u", "--users-file", action="store", dest="user_file",
-                type="string", help="Cobbler users.conf file to use")
+                type="string", default='/etc/cobbler/users.conf',
+                help="Cobbler users.conf file to use")
     parser.add_option("-s", "--server", action="store", dest="server",
                 type="string", help="Cobbler server hostname or IP")
 
