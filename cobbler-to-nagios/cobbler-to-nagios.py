@@ -90,6 +90,16 @@ def create_hostgroup_file(template, cattle, cattle_dir):
     template_file.close()
     hostgroup_file.close()
 
+def rm_old_hosts(config):
+    host_pattern = re.compile('.*\.eucalyptus\-systems\.com\.cfg')
+    cattle_dir = config.get('Nagios', 'cattle_dir')
+
+    host_files = os.listdir(cattle_dir)
+
+    for cur_host in host_files:
+        if re.match(host_pattern, cur_host):
+            os.remove(cattle_dir + '/' + cur_host)
+
 def main():
     """
     Main function for building out the Nagios files for the cattle (non-production)
@@ -111,6 +121,8 @@ def main():
         config.read(options.config)
     else:
         config.read(default_conf)
+
+    rm_old_hosts(config)
 
     server_url = "http://{0}/cobbler_api".format(config.get('Cobbler','server'))
     remote = xmlrpclib.Server(server_url)
