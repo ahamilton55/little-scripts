@@ -62,8 +62,6 @@ def main():
     cblr_url = ""
 
     parser = OptionParser()
-    parser.add_option("-c", "--config", action="store", dest="config",
-                type="string", help="configuration file to be used.")
     parser.add_option("-u", "--users-file", action="store", dest="user_file",
                 type="string", help="Cobbler users.conf file to use")
     parser.add_option("-s", "--server", action="store", dest="server",
